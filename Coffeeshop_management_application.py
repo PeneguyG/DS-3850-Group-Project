@@ -28,7 +28,24 @@ def delete():
     print("meow delete")
 
 def summary():
-    #Placeholder please edit
+    #Summary report
+    def summary():
+    import sqlite3
+
+    conn = sqlite3.connect("calico.db")
+
+    query = """
+    SELECT 
+        inventory.name,
+        inventory.category,
+        inventory.price,
+        sales.quantity,
+        sales.date
+    FROM sales
+    JOIN inventory ON sales.parent_id = inventory.id
+    """
+
+    df = pd.read_sql(query, conn)
     print("meow summary")
 
 '''
