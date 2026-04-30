@@ -1,8 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox, scrolledtext
 import pandas as pd
 import numpy as np
-
+import sqlite3 
 root = tk.Tk()
 root.title("Calico Management Application")
 root.geometry("1024x768")
