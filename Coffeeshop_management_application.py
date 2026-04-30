@@ -24,11 +24,55 @@ def update():
     print("meow update")
 
 def delete():
-    #Placehold please edit
+    #Placehold please edit 
     print("meow delete")
 
 def summary():
-    #Placeholder please edit
+    conn = sqlite3.connect("calico.db")
+
+    query = """
+    SELECT 
+        products.name,
+        products.category,
+        products.price,
+        sales.quantity,
+        sales.date
+    FROM sales
+    JOIN products ON sales.product_id = products.id
+    """
+
+    df = pd.read_sql(query, conn)
+
+    if df.empty:
+        print("No data yet")
+        return
+
+    # Calculate revenue (Not using stored date)
+    df['revenue'] = df['quantity'] * df['price']
+
+    # Group by product
+    summary_df = df.groupby('name').agg({
+        'quantity': 'sum',
+        'revenue': 'sum'
+    }).reset_index()
+
+    # NumPy calculations
+    total_items = np.sum(df['quantity'].to_numpy())
+    avg_revenue = np.mean(df['revenue'].to_numpy())
+
+    # Round money
+    summary_df['revenue'] = np.round(summary_df['revenue'], 2)
+
+    print("=== SUMMARY ===")
+    print(summary_df)
+    print("Total Items Sold:", total_items)
+    print("Average Revenue:", round(avg_revenue, 2))
+
+    conn.close()
+
+    return summary_df
+    
+    
     print("meow summary")
 
 '''
