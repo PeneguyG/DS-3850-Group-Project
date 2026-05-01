@@ -1,6 +1,6 @@
 # DS-3850-Group-Project
 
-Team Members: Grace Peneguy, Selena Vargas, Josseline Artola, and Sanuji Dissanayake
+Team Members: Grace Peneguy, Selena Vargas, Josseline Artola, and Sanuji Mandanayake A 
 
 Domain name: Coldbrew Calico Coffeehouse
 
