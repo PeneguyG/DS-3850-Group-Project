@@ -194,16 +194,44 @@ def add_sale():
         refresh_data()
         messagebox.showinfo("Success", "Sale recorded!")
 
-def summary():
-    conn = sqlite3.connect("calico_coffee.db")
-    # JOIN query as required
-    query = "SELECT i.category, s.quantity, s.total FROM sales s JOIN Menu_Options i ON s.parent_id = i.id"
+def generate_report():
+    conn = sqlite3.connect(DB_NAME)
+
+    query = """
+    SELECT i.category, s.quantity, s.total
+    FROM sales s
+    JOIN Menu_Options i ON s.parent_id = i.id
+    """
+
     df = pd.read_sql(query, conn)
     conn.close()
 
     if df.empty:
-        messagebox.showinfo("Report", "No sales data found")
+        messagebox.showinfo("Report", "No sales yet — go make some coffee sales")
         return
+
+    # calculations
+    avg_sale = np.mean(df['total'])
+    max_sale = np.max(df['total'])
+
+    grouped = df.groupby('category')[['quantity', 'total']].sum()
+
+    report_display.delete('1.0', tk.END)
+
+    # Calico daily header 
+    report_display.insert(tk.END, "📊 Calico Coffee Daily Summary\n")
+    report_display.insert(tk.END, "-----------------------------------\n")
+
+    report_display.insert(tk.END, f"Average Sale: ${avg_sale:.2f}\n")
+    report_display.insert(tk.END, f"Highest Sale: ${max_sale:.2f}\n\n")
+
+    report_display.insert(tk.END, "Sales by Category:\n")
+    report_display.insert(tk.END, grouped.to_string())
+
+    # save CSV
+    df.to_csv("calico_sales_report.csv", index=False)
+
+    messagebox.showinfo("Report Ready", "Report generated and saved!")
 
     # NumPy stats
     mean_val = np.mean(df['total'])
