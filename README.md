@@ -8,7 +8,7 @@ Feature credits-
 Gui work -> Grace Peneguy
 Pandas report panel & NumPy stats -> Selena Vargas
 Summary/CSV report & Menu items -> Josseline Artola
-Table Schema -> Sanuji Dissanayake
+Table Schema -> Sanuji Mandanayake A 
 
 How to run the program
 ______________________________________________________________________________________________
