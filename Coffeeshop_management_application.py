@@ -29,12 +29,20 @@ def init_db():
     cursor.execute("SELECT COUNT(*) FROM Menu_Options")
     if cursor.fetchone()[0] == 0:
         products = [
-            ('Matcha', 'Drinks', 6.00, 1), ('Latte', 'Drinks', 4.50, 1),
-            ('Mocha', 'Drinks', 5.00, 1), ('Croissant', 'Food', 3.50, 1),
-            ('Chocolate Muffin', 'Food', 3.25, 1), ('Banh Mi', 'Food', 7.50, 1),
-            ('Calico Mug', 'Products', 15.00, 1), ('Columbian Coffee Bean Bags', 'Products', 18.00, 1),
-            ('Pink Lemonade', 'Drinks', 3.50, 1), ('Grilled Cheese', 'Food', 8.50, 1)
-        ]
+    ('Iced Matcha Latte', 'Drinks', 6.50, 1),
+    ('Vanilla Cold Brew', 'Drinks', 5.25, 1),
+    ('Caramel Latte', 'Drinks', 5.75, 1),
+    ('Strawberry Refresher', 'Drinks', 4.75, 1),
+
+    ('Ham & Cheese Croissant', 'Food', 4.25, 1),
+    ('Blueberry Muffin', 'Food', 3.75, 1),
+    ('Avocado Toast', 'Food', 7.00, 1),
+    ('Grilled Chicken Panini', 'Food', 8.50, 1),
+
+    ('Calico Coffee Mug', 'Products', 14.99, 1),
+    ('Reusable Straw Set', 'Products', 6.00, 1),
+    ('Coffee Bean Bag (Medium Roast)', 'Products', 16.50, 1)
+]
         cursor.executemany("INSERT INTO Menu_Options (name, category, price, active) VALUES (?,?,?,?)", products)
     conn.commit()
     conn.close()
